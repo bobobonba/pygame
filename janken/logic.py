@@ -5,9 +5,9 @@ class JankenLogic:
         self.__table = table
     
     def is_winning(self, hand, opponent_hand):
-        if self.__table[hand] is opponent_hand:
+        if self.__table[hand] == opponent_hand:
             return True
-        elif self.__table[opponent_hand] is hand:
+        elif self.__table[opponent_hand] == hand:
             return False
         else:
             return None
