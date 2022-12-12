@@ -3,15 +3,13 @@ import validator
 import display
 
 board = logic.GameBoard(10)
-valid = validator.GameValid()
-displayer = display.Display()
 
-displayer.show(board.board)
+display.Display.show(board.board)
 print('間違いを見つけよう')
 
 while True:
     
-    coordinate = valid.validate(input('入力例: A1'))
+    coordinate = validator.GameValid.validate(input('入力例: A1\n'))
 
     if coordinate is False:
         print('入力しなおしてください')
@@ -21,6 +19,6 @@ while True:
 
     if result is True:
         print('正解')
+        break
     else:
         print('不正解')
-        continue
