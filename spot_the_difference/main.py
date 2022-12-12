@@ -6,7 +6,7 @@ board = logic.GameBoard(10)
 valid = validator.GameValid()
 displayer = display.Display()
 
-displayer.show(board)
+displayer.show(board.board)
 print('間違いを見つけよう')
 
 while True:
@@ -17,7 +17,7 @@ while True:
         print('入力しなおしてください')
         continue
     
-    result = board.is_collect(coordinate)
+    result = board.is_wrong_char(coordinate)
 
     if result is True:
         print('正解')
