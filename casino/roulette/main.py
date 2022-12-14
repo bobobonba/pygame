@@ -29,11 +29,11 @@ while you.have_coin:
 
     
     for player in living_players:
-        if roulette_game.evaluate(winning_num, player.bet):
-            result = roulette_game.evaluate(winning_num, player.bet)
+        if roulette_game.evaluate(winning_num, player.bet_place):
+            result = roulette_game.evaluate(winning_num, player.bet_place)
 
             print("%sの予想が的中" % player.name)
-            print("払い戻し：", roulette_game(winning_num, player.bet))
+            print("払い戻し：", roulette_game.calcu(player.bet_places, player.bet_coin))
         else:
             print("%sの予想はハズレ" % player.name)
 
