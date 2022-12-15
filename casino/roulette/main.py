@@ -15,14 +15,18 @@ c3 = cp.COMPlayer('C3', init_coin, roulette_game)
 living_players = [you, c1, c2, c3]
 
 while you.have_coin():
+    template = '[持ちコイン] '
+    string = ' / '.join([f'{player.name}:{player.coin}' for player in living_players])
+    print(template + string)
+
     # コインを持っているプレイヤーがそれぞれ行動する
     for player in living_players:
         # プレイヤーがPlayerの場合
         if player is you:
             # 正常な入力がされるまでループ
             while True:
-                coin = valid.Validator.validate(input('何枚BETしますか?:(1-99)'), range(1, player.coin + 1))
-                place = valid.Validator.validate(input('どこにBETしますか?:(R, B, 1-8'), roulette_game.bet_table)
+                coin = valid.Validator.validate(input('何枚BETしますか?:(1-99) '), range(1, player.coin + 1))
+                place = valid.Validator.validate(input('どこにBETしますか?:(R, B, 1-8) '), roulette_game.bet_table)
 
                 if (coin is False) or (place is False):
                     print('もう一度入力してください')
@@ -36,10 +40,11 @@ while you.have_coin():
 
         print(f"{player.name}は {player.bet_coin}コイン を {player.bet_place} にBETしました")
 
-    print(disp.Display.first_line(living_players))
+
+    print(disp.Display.first_line([player.name for player in living_players]))
     disp.Display.show_table(roulette_game.bet_table, [{player.bet_place : player.bet_coin} for player in living_players])
     # 数字を選ぶ
-    winning_number = roulette_game.spin
+    winning_number = roulette_game.spin()
     print(f'選ばれたのは「{winning_number}」')
 
     # 的中しているかをそれぞれ判断する
@@ -49,8 +54,10 @@ while you.have_coin():
         if (result is True):
             refund = roulette_game.calcu(player.bet_place, player.bet_coin)
             print(f'{player.name}は当たり {refund}コインを獲得しました')
+            player.get(refund)
         # ハズレの場合
         else:
+            player.lost(player.bet_coin)
             continue
 
 
